@@ -39,6 +39,14 @@
 
             </div><!-- /.blog-post -->
 
+            <div class="blog-post">
+
+            </div><!-- /.blog-post -->
+
+            <div class="blog-post">
+
+            </div><!-- /.blog-post -->
+
             <nav>
                 <ul class="pager">
                     <li><a href="#">Previous</a></li>
