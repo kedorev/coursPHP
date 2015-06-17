@@ -50,7 +50,7 @@ class Article
      */
     function htmlArticle()
     {
-        echo    "<div class=\"article\" id=".$this->id_Article.">
+        echo    "<div class=\"blog-post\" id=".$this->id_Article.">
                     <div class=\"title\">
                         ".$this->title_Article."
                     </div>
