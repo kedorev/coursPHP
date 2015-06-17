@@ -9,49 +9,57 @@
 
 </head>
 <body>
-<article>
-    <div id="titreArticle">
 
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav">
+            <a class="blog-nav-item active" href="#">Home</a>
+            <a class="blog-nav-item" href="#">New features</a>
+            <a class="blog-nav-item" href="#">Press</a>
+            <a class="blog-nav-item" href="#">New hires</a>
+            <a class="blog-nav-item" href="#">About</a>
+        </nav>
     </div>
-    <div id="corpsArticle">
+</div>
 
-    </div>
-</article>
-<article>
-    <div id="titreArticle">
+<div class="container">
 
-    </div>
-    <div id="corpsArticle">
+    <div class="row">
 
-    </div>
-</article>
-<article>
-    <div id="titreArticle">
+        <div class="col-sm-8 blog-main">
 
-    </div>
-    <div id="corpsArticle">
+            <div class="blog-post">
 
-    </div>
-</article>
-<article>
-    <div id="titreArticle">
+            </div><!-- /.blog-post -->
 
-    </div>
-    <div id="corpsArticle">
+            <div class="blog-post">
 
-    </div>
-</article>
-<article>
-    <div id="titreArticle">
+            </div><!-- /.blog-post -->
 
-    </div>
-    <div id="corpsArticle">
+            <div class="blog-post">
 
-    </div>
-</article>
+            </div><!-- /.blog-post -->
 
+            <div class="blog-post">
 
+            </div><!-- /.blog-post -->
 
+            <div class="blog-post">
+
+            </div><!-- /.blog-post -->
+
+            <nav>
+                <ul class="pager">
+                    <li><a href="#">Previous</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </nav>
+
+        </div><!-- /.blog-main -->
+
+    </div><!-- /.row -->
+
+</div><!-- /.container -->
 
 </body>
 </html>
