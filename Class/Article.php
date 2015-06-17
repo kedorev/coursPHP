@@ -25,8 +25,8 @@ class Article
     var $array_media_article;
 
     /*
-         * Title de l'article
-         */
+     * Title de l'article
+     */
     var $title_Article;
 
     function __construct($array_media_article, $id_Article, $body_Article, $title)
