@@ -6,7 +6,7 @@
  * Time: 12:41
  */
 
-class Database extends PDO
+class Database
 {
 
     /**
@@ -42,19 +42,36 @@ class Database extends PDO
     const password = "M9Ua35wm";
 
 
-     function __construct()
+    /**
+     * Définition du constructeur pour la classe singleton étendu de PDO
+     *
+     *
+     */
+    private function __construct()
+    {
+        try
+        {
+            self::$PDOInstance = new PDO(hote, username, password);
+        }
+        catch (PDOException $e)
+        {
+            die("PDO CONNECTION ERROR: " . $e->getMessage() . "<br/>");
+        }
+    }
+
+
+    /**
+     * retourne l'instance de la classe
+     *
+     * @return PDO
+     */
+    public static function getInstance()
     {
         if(self::$PDOInstance == null)
         {
-            try
-            {
-                self::$PDOInstance = new PDO(hote, username, password);
-            }
-            catch (PDOException $e)
-            {
-                die("PDO CONNECTION ERROR: " . $e->getMessage() . "<br/>");
-            }
+            self::__construct();
         }
         return self::$PDOInstance;
+
     }
 }
