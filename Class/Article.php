@@ -36,10 +36,9 @@ class Article
         $request->execute(array($idArticle));
         $request->fetch();
 
-        $this->array_media_article = $array_media_article;
-        $this->id_Article = $id_Article;
-        $this->body_Article = $body_Article;
-        $this->title_Article = $title;
+        $this->id_Article = $request['idArticle'];
+        $this->body_Article = $request['corps'];
+        $this->title_Article = $request['titre'];
     }
 
     /*

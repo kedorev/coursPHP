@@ -53,11 +53,19 @@ class Database
      *
      *
      */
-     private static function __construct()
+     private function __construct()
     {
+        //echo $this->server['host'];
+        //var_dump( $_SERVER);
+
+        if ($_SERVER['HTTP_HOST'] == "localhost"){
+            // use test base
+        }
+
+
         try
         {
-            self::$PDOInstance = new PDO(self::$server['host'], self::$server['username'], self::$server['password']);
+            self::$PDOInstance = new PDO($this->server['host'], $this->server['username'], $this->server['password']);
         }
         catch (PDOException $e)
         {
@@ -77,7 +85,7 @@ class Database
     {
         if(self::$PDOInstance == null)
         {
-            self::__construct();
+            self::$PDOInstance = new Database();
         }
         return self::$PDOInstance;
 

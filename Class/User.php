@@ -57,7 +57,7 @@ class User
     function login($identifiant,$password)
     {
         $pdo = Database::getInstance();
-        $requete = $pdo->prepare("SELECT count(*) FROM login l WHERE log = ? AND mdp = ?");
+        $requete = $pdo->prepare("SELECT count(*) FROM user WHERE log = ? AND mdp = ?");
         $requete->exec(array($identifiant,$password));
         $nb_res = $requete->fetchColumn();
 
@@ -81,7 +81,7 @@ class User
     function isAdmin($identifiant)
     {
         $pdo = Database::getInstance();
-        $requete = $pdo->prepare("SELECT admin FROM login l WHERE log = ?");
+        $requete = $pdo->prepare("SELECT admin FROM user WHERE log = ?");
         $requete->exec(array($identifiant));
         $nb_res = $requete->fetchColumn();
 
@@ -95,4 +95,59 @@ class User
         }
     }
 
+    /*
+     * Vérifie si le mail est déjà présent
+     *
+     * @var $mail
+     */
+    function mailIsPresent($mail)
+    {
+        $pdo = Database::getInstance();
+        $requete = $pdo->prepare("SELECT count(*) FROM user WHERE mail = ?");
+        $requete->exec(array($mail));
+        $nb_res = $requete->fetchColumn();
+
+        if ($nb_res == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    /*
+     * Vérifie si l'identifiant est déjà présent
+     *
+     * @var $mail
+     */
+    function identifiantIsPresent($identifiant)
+    {
+        $pdo = Database::getInstance();
+        $requete = $pdo->prepare("SELECT count(*) FROM user WHERE identifiant = ?");
+        $requete->exec(array($identifiant));
+        $nb_res = $requete->fetchColumn();
+
+        if ($nb_res == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    /*
+     * Ajoute un utilisateur à la DB
+     *
+     * @var $identifiant, $password,$mail,$firstname,$lastname
+     */
+    function newUser($identifiant, $password,$mail,$firstname,$lastname)
+    {
+
+    }
 }
