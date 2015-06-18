@@ -29,8 +29,13 @@ class Article
      */
     var $title_Article;
 
-    function __construct($array_media_article, $id_Article, $body_Article, $title)
+    function __construct($idArticle)
     {
+        $bdd = Database::getInstance();
+        $request = $bdd->prepare('SELECT * FROM Article WHERE idArticle = ?');
+        $request->execute(array($idArticle));
+        $request->fetch();
+
         $this->array_media_article = $array_media_article;
         $this->id_Article = $id_Article;
         $this->body_Article = $body_Article;

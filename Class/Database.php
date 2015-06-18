@@ -36,28 +36,36 @@ class Database
      *
      * @access private
      */
-    const host = "mysql:host=maximelede1.mysql.db;";
-    const nameDB = "maximelede1";
-    const username = "maximelede1";
-    const password = "M9Ua35wm";
+    private $server = array(
+        'host' => "mysql:host=maximelede1.mysql.db;dbname=maximelede1",
+        'username' => 'maximelede1' ,
+        'password' => "M9Ua35wm"
+    );
 
+    private $serverLocal = array(
+        'host' => "mysql:host=localhost;dbname=test",
+        'username' => 'root' ,
+        'password' => "root"
+    );
 
     /**
      * Définition du constructeur pour la classe singleton étendu de PDO
      *
      *
      */
-    private function __construct()
+     private static function __construct()
     {
         try
         {
-            self::$PDOInstance = new PDO(hote, username, password);
+            self::$PDOInstance = new PDO(self::$server['host'], self::$server['username'], self::$server['password']);
         }
         catch (PDOException $e)
         {
             die("PDO CONNECTION ERROR: " . $e->getMessage() . "<br/>");
         }
     }
+
+
 
 
     /**

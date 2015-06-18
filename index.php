@@ -1,3 +1,11 @@
+<?php
+    /*
+     * On initialise la session
+     */
+    session_start();
+    include_once 'Include/includeClass.php';
+?>
+
 <!doctype html>
 <html>
     <head>
@@ -28,11 +36,13 @@
     <div class="container">
 
         <?php
-            require_once 'Include/variable.php';
-            if($user <> null)
-            {
-                //On ajoute le code lié aux articles
-            }
+
+            echo "test connection db";
+
+            $bdd = Database::getInstance();
+            $request = $bdd->prepare('SELECT * FROM login');
+            var_dump($request);
+
         ?>
         <div class="row">
 
