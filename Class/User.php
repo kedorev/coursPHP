@@ -11,89 +11,45 @@ class User
     /**
      * Variable permettant de savoir si l'utilisateur est enregistre
      */
-    var $isLoged;
+    private $isLoged;
 
     /*
      * Variable permettant de savoir si l'utilisateur est un administrateur
      */
-    var $isAdmin;
+    private $isAdmin;
 
     /*
      *  Identifiant de l'utilisateur
      */
-    var $identifiant;
+    private $identifiant;
+
+    /*
+     * Mail de l'utilisateur
+     */
+    private $mail;
+
+    /*
+     * Prénom de l'utilisateur
+     */
+    private $firstname;
+
+    /*
+     * Nom de l'utilisateur
+     */
+    private $lastname;
 
 
-    function __construct($identifiant, $password)
+    function __construct($identifiant, $mail, $firstname, $lastname, $isloged)
     {
         $this->identifiant = $identifiant;
-        if($this::login($identifiant,$password))
-        {
-            $this->isLoged = 1;
-            if (!$this::isAdmin($identifiant))
-            {
-                $this->isAdmin = 0;
-            }
-            else
-            {
-                $this->isAdmin = 1;
-            }
-        }
-        else
-        {
-            $this->isLoged = 0;
-            $this->isAdmin = 0;
-        }
+        $this->isLoged = $isloged;
+        $this->firstname = $firstname;
+        $this->mail = $mail;
+        $this->lastname = $lastname;
     }
 
 
-    /*
-    *  Retourne si l'utilisateur a saisie les informations adéquates pour se connecter.
-    *
-    * @var $identifiant, $password
-    * @acces public
-    * @return boolean
-    */
-    function login($identifiant,$password)
-    {
-        $pdo = Database::getInstance();
-        $requete = $pdo->prepare("SELECT count(*) FROM user WHERE log = ? AND mdp = ?");
-        $requete->exec(array($identifiant,$password));
-        $nb_res = $requete->fetchColumn();
 
-        if ($nb_res == 1)
-        {
-            return true;
-        }// ok
-        else // pas ok
-        {
-            return false;
-        }
-    }
-
-    /*
-     *  Retourne si l'utilisateur à les droits d'administration
-     *
-     * @var $identifiant
-     * @acces public
-     * @return boolean
-     */
-    function isAdmin($identifiant)
-    {
-        $pdo = Database::getInstance();
-        $requete = $pdo->prepare("SELECT admin FROM user WHERE log = ?");
-        $requete->exec(array($identifiant));
-        $nb_res = $requete->fetchColumn();
-
-        if ($nb_res['admin'] == 1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
     /*
      * Vérifie si le mail est déjà présent

@@ -12,15 +12,14 @@ class Database
     /**
      * Instance de la classe SPDO
      *
-     * @var $PDOInstance
+     * @var $DatabaseInstance
      * @access private
      */
-    private static $PDOInstance = null;
+    private static $DatabaseInstance = null;
 
 
     /**
      * surcharge de la fonction clone pour eviter le clonage et ainsi avoid le singleton
-     *
      *
      * @access private
      */
@@ -36,17 +35,9 @@ class Database
      *
      * @access private
      */
-    private $server = array(
-        'host' => "mysql:host=maximelede1.mysql.db;dbname=maximelede1",
-        'username' => 'maximelede1' ,
-        'password' => "M9Ua35wm"
-    );
+    private $server = null;
+    private $PDO = null;
 
-    private $serverLocal = array(
-        'host' => "mysql:host=localhost;dbname=test",
-        'username' => 'root' ,
-        'password' => "root"
-    );
 
     /**
      * Définition du constructeur pour la classe singleton étendu de PDO
@@ -55,22 +46,35 @@ class Database
      */
      private function __construct()
     {
-        //echo $this->server['host'];
-        //var_dump( $_SERVER);
-
+        //var_dump($_SERVER);
         if ($_SERVER['HTTP_HOST'] == "localhost"){
-            // use test base
+            $this->server = array(
+                'host' => "mysql:host=localhost;dbname=test",
+                'username' => 'root' ,
+                'password' => ''
+            );
+        }
+        else
+        {
+            $this->server = array(
+                'host' => "mysql:host=maximelede1.mysql.db;dbname=maximelede1",
+                'username' => 'maximelede1' ,
+                'password' => "M9Ua35wm"
+            );
         }
 
 
         try
         {
-            self::$PDOInstance = new PDO($this->server['host'], $this->server['username'], $this->server['password']);
+            $this->PDO = new PDO($this->server['host'], $this->server['username'], $this->server['password']);
+            echo "<br   />construct ";
+            var_dump(self::$DatabaseInstance);
         }
         catch (PDOException $e)
         {
             die("PDO CONNECTION ERROR: " . $e->getMessage() . "<br/>");
         }
+        $this->server = array();
     }
 
 
@@ -83,11 +87,82 @@ class Database
      */
     public static function getInstance()
     {
-        if(self::$PDOInstance == null)
-        {
-            self::$PDOInstance = new Database();
+        if(self::$DatabaseInstance == null) {
+            self::$DatabaseInstance = new Database();
         }
-        return self::$PDOInstance;
-
+        return self::$DatabaseInstance;
     }
+
+
+    /*
+     * Retourne un utilisateur
+     * @var $password
+     * @return  l'instance du user
+     */
+    function getUser($identifiant, $password)
+    {
+        if(!isempty($this->PDO) && login($identifiant,$password))
+        {
+            $requete = $this->PDO->prepare('SELECT * FROM user WHERE identifiant = ?');
+            $requete->exec(array($identifiant));
+            $result = $requete->fetchColumn();
+
+            return new User($result('identifiant'), $result('mail'), $result('firstname'),$result('lastname'),$result('isAdmin') );
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /*
+    *  Retourne si l'utilisateur a saisie les informations adéquates pour se connecter.
+    *
+    * @var $identifiant, $password
+    * @acces public
+    * @return boolean
+    */
+    function canLogin($identifiant,$password)
+    {
+
+        $requete = $this->pdo->prepare("SELECT count(*) FROM user WHERE log = ? AND mdp = ?");
+        $requete->exec(array($identifiant,$password));
+        $nb_res = $requete->fetchColumn();
+
+        if ($nb_res == 1)
+        {
+            return true;
+        }// ok
+        else // pas ok
+        {
+            return false;
+        }
+    }
+
+    /*
+     *  Retourne si l'utilisateur à les droits d'administration
+     *
+     * @var $identifiant
+     * @acces public
+     * @return boolean
+     */
+    function userIsAdmin($identifiant)
+    {
+        $requete = $this->pdo->prepare("SELECT admin FROM user WHERE log = ?");
+        $requete->exec(array($identifiant));
+        $nb_res = $requete->fetchColumn();
+
+        if ($nb_res['admin'] == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /*
+     *
+     */
 }

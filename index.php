@@ -40,8 +40,8 @@
             echo "test connection db";
 
             $bdd = Database::getInstance();
-            $request = $bdd->prepare('SELECT * FROM login');
-            var_dump($request);
+            var_dump($bdd);
+
 
         ?>
         <div class="row">
