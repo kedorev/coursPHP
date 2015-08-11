@@ -5,6 +5,6 @@
 * Time: 14:12
 */
 
-<div class="animation">
+<div class="statistique">
 
 </div>

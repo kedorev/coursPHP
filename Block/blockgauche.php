@@ -1,3 +1,8 @@
+<?php
+    include 'Block/pepite.php';
+    include 'Block/statistique.php';
+    include 'Block/animation.php';
+?>
 /**
 * Created by PhpStorm.
 * User: Benjamin
