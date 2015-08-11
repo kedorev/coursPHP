@@ -5,7 +5,9 @@
     <!-- Personal Css -->
     <?php
     include 'Include/Header.php';
+    include 'Include/includeBlock.php';
     ?>
+
 
 </head>
 <body>
@@ -24,40 +26,6 @@
 
 <div class="container">
 
-    <div class="row">
-
-        <div class="col-sm-8 blog-main">
-
-            <div class="blog-post">
-
-            </div><!-- /.blog-post -->
-
-            <div class="blog-post">
-
-            </div><!-- /.blog-post -->
-
-            <div class="blog-post">
-
-            </div><!-- /.blog-post -->
-
-            <div class="blog-post">
-
-            </div><!-- /.blog-post -->
-
-            <div class="blog-post">
-
-            </div><!-- /.blog-post -->
-
-            <nav>
-                <ul class="pager">
-                    <li><a href="#">Previous</a></li>
-                    <li><a href="#">Next</a></li>
-                </ul>
-            </nav>
-
-        </div><!-- /.blog-main -->
-
-    </div><!-- /.row -->
 
 </div><!-- /.container -->
 
